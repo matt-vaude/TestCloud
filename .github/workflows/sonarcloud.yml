@@ -34,7 +34,7 @@ jobs:
 
       - name: Print SONAR_TOKEN
         run: |
-          echo "Sonar token is: ${{ 45d772bf4bb78ef738bf075d75015beec9bbf002 }}"
+          echo "Sonar token is: 45d772bf4bb78ef738bf075d75015beec9bbf002 "
 
       - name: Additional arguments for SonarCloud scanner
         run: |
