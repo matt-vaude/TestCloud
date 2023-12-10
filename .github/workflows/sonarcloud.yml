@@ -35,5 +35,5 @@ jobs:
 
       - name: Additional arguments for SonarCloud scanner
         run: |
-          echo "Running SonarCloud with additional arguments"
+          echo "Runing SonarCloud with additional arguments"
           sonar-scanner -Dsonar.projectKey=TestCloud -Dsonar.organization=matt-vaude
