@@ -19,7 +19,9 @@ jobs:
       
       - name: Analyze with SonarCloud
         uses: sonarsource/sonarcloud-github-action@master
-
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: 45d772bf4bb78ef738bf075d75015beec9bbf002 
         
       - name: Build and analyze with SonarCloud
         run: |
