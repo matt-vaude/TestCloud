@@ -26,5 +26,12 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          # Additional arguments for the sonarcloud scanner
-          SONAR_SCANNER_OPTS: "-Dsonar.projectKey=TestCloud -Dsonar.organization=matt-vaude"
+
+      - name: Print SONAR_TOKEN
+        run: |
+          echo "Sonar token is: ${{ secrets.SONAR_TOKEN }}"
+
+      - name: Additional arguments for SonarCloud scanner
+        run: |
+          echo "Running SonarCloud with additional arguments"
+          sonar-scanner -Dsonar.projectKey=TestCloud -Dsonar.organization=matt-vaude
