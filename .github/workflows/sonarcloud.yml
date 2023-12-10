@@ -18,7 +18,7 @@ jobs:
       - uses: actions/checkout@v3
       
       - name: Analyze with SonarCloud
-        uses: sonarSource/sonarcloud-github-action@v1.3.0  # Remplacez v1.3.0 par la dernière version stable connue
+        uses: sonarsource/sonarcloud-github-action@master
 
         
       - name: Build and analyze with SonarCloud
