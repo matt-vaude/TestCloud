@@ -16,6 +16,9 @@ jobs:
 
     steps:
 
+      - name: Analyze with SonarCloud
+        uses: SonarSource/sonarcloud-github-action@main
+        
       - name: Build and analyze with SonarCloud
         run: |
           cd Sourcecode
