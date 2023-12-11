@@ -22,8 +22,7 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
       - name: Run build-wrapper
         run: |
-          cd Sourcecode
-          build-wrapper-linux-x86-64 --out-dir ${{ env.BUILD_WRAPPER_OUT_DIR }} gcc -o Programme Programe.c
+          build-wrapper-linux-x86-64 --out-dir ${{ env.BUILD_WRAPPER_OUT_DIR }} gcc -o Programme Sourcecode/Programe.c
       - name: Run sonar-scanner
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
@@ -31,5 +30,4 @@ jobs:
           sonar-scanner \
             -Dsonar.projectKey=TestCloud \
             -Dsonar.organization=matt-vaude \
-            -Dsonar.cfamily.build-wrapper-output="/home/runner/work/TestCloud/TestCloud/build_wrapper_output_directory"/
            
