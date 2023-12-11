@@ -31,4 +31,5 @@ jobs:
           sonar-scanner \
             -Dsonar.projectKey=TestCloud \
             -Dsonar.organization=matt-vaude \
-            --define sonar.cfamily.build-wrapper-output="${{ env.BUILD_WRAPPER_OUT_DIR }}"
+            -Dsonar.cfamily.build-wrapper-output="/home/runner/work/TestCloud/TestCloud/build_wrapper_output_directory"/
+           
