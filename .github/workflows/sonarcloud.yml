@@ -10,7 +10,7 @@ jobs:
     name: Build and analyze
     runs-on: ubuntu-latest
     env:
-      BUILD_WRAPPER_OUT_DIR: build_wrapper_output_directory # Directory where build-wrapper output will be placed
+      BUILD_WRAPPER_OUT_DIR: ${{ github.workspace }}/build_wrapper_output_directory
     steps:
       - uses: actions/checkout@v2
         with:
@@ -22,7 +22,9 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
       - name: Run build-wrapper
         run: |
-          build-wrapper-linux-x86-64 --out-dir build_wrapper_output_directory make clean all
+          cd Sourcecode
+          ../../build-wrapper-linux-x86-64 --out-dir ${{ env.BUILD_WRAPPER_OUT_DIR }} make clean all
+
       - name: Run sonar-scanner
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
@@ -30,4 +32,5 @@ jobs:
           sonar-scanner \
             -Dsonar.projectKey=TestCloud \
             -Dsonar.organization=matt-vaude \
-            -Dsonar.cfamily.build-wrapper-output="build_wrapper_output_directory"
+            -Dsonar.cfamily.build-wrapper-output="${{ env.BUILD_WRAPPER_OUT_DIR }}"
+
