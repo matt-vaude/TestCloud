@@ -1,34 +1,29 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void functionWithLeak() {
-    int leak = malloc(100 sizeof(int)); // Allocation de mémoire non libérée
-    // Pas de free(leak), donc fuite de mémoire
-}
+typedef struct {
+    int data;
+    char info;
+} Item;
 
 int main() {
-    int data = (int)malloc(10 * sizeof(int)); // Cast inutile en C
-    if (data == NULL) {
-        printf("Erreur d'allocation de mémoire\n");
-        return 1;
+    intarray = malloc(5 * sizeof(int)); // Allocation de mémoire
+    for (int i = 0; i <= 5; i++) { // Dépassement des bornes du tableau
+        array[i] = i;
     }
 
-    for (int i = 0; i < 10; i++) {
-        data[i] = i;
-    }
+    Item item = malloc(sizeof(Item)); // Allocation de mémoire
+    item->info = "Exemple"; // Assignation d'une chaîne littérale à un pointeur
 
-    functionWithLeak(); // Appel de fonction provoquant une fuite de mémoire
+    int x = 10, y = 0;
+    int result = x / y; // Division par zéro
 
-    free(data); // Libération de la mémoire
+    charstr = malloc(10); // Allocation de mémoire
+    str = "Texte"; // Fuite de mémoire, écrasement du pointeur
 
-    int a = 10, b = 0;
-    if (b != 0) {
-        int result = a / b; // Risque de division par zéro
-        printf("Résultat : %d\n", result);
-    }
-
-    char str[20];
-    sprintf(str, "Valeur de a: %d", a); // Utilisation potentiellement dangereuse de sprintf
+    free(array); // Libération de la mémoire
+    free(item); // Libération de la mémoire
+    // La mémoire allouée à 'str' n'est jamais libérée (fuite de mémoire)
 
     return 0;
 }
