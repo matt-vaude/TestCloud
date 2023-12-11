@@ -30,4 +30,4 @@ jobs:
           sonar-scanner \
             -Dsonar.projectKey=TestCloud \
             -Dsonar.organization=matt-vaude \
-           
+            -Dsonar.cfamily.build-wrapper-output="build_wrapper_output_directory"
