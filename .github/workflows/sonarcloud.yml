@@ -20,6 +20,12 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GIT_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          
+      - name: Install build-wrapper
+        run: |
+          curl -L -o build-wrapper-linux-x86-64.zip https://sonarcloud.io/static/cpp/build-wrapper-linux-x86.zip
+          unzip build-wrapper-linux-x86-64.zip
+
       - name: Run build-wrapper
         run: |
           cd Sourcecode
