@@ -1,43 +1,32 @@
-name: SonarCloud analysis
-
+name: SonarCloud
 on:
   push:
-    branches: [ "main" ]
+    branches:
+      - main
   pull_request:
-    branches: [ "main" ]
-  workflow_dispatch:
-
-permissions:
-  pull-requests: read
-
+    types: [opened, synchronize, reopened]
 jobs:
-  DemoSonarCloud:
+  build:
+    name: Build and analyze
     runs-on: ubuntu-latest
-
+    env:
+      BUILD_WRAPPER_OUT_DIR: build_wrapper_output_directory # Directory where build-wrapper output will be placed
     steps:
-      - uses: actions/checkout@v3
-      
-      - name: Analyze with SonarCloud
-        uses: sonarsource/sonarcloud-github-action@master
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
+      - name: Install sonar-scanner and build-wrapper
+        uses: SonarSource/sonarcloud-github-c-cpp@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GIT_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           SONAR_SCANNER_OPTS: "-Dsonar.projectKey=matt-vaude_TestCloud -Dsonar.organization=matt-vaude"
-        
-      - name: Build and analyze with SonarCloud
+      - name: Run build-wrapper
         run: |
           cd Sourcecode
-          gcc -o Programme Programme.c
-          sonar-scanner
+          build-wrapper-linux-x86-64 --out-dir ${{ env.BUILD_WRAPPER_OUT_DIR }} gcc -o Programme Programme.c
+      - name: Run sonar-scanner
         env:
-          GITHUB_TOKEN: ${{ secrets.GIT_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-
-      - name: Print SONAR_TOKEN
         run: |
-          echo "Sonar token is: 45d772bf4bb78ef738bf075d75015beec9bbf002 "
-
-      - name: Additional arguments for SonarCloud scanner
-        run: |
-          echo "Runing SonarCloud with additional arguments"
-          sonar-scanner -Dsonar.projectKey=TestCloud -Dsonar.organization=matt-vaude
+          sonar-scanner --define sonar.cfamily.build-wrapper-output="${{ env.BUILD_WRAPPER_OUT_DIR }}"
