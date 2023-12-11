@@ -1,29 +1,26 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-typedef struct {
-    int data;
-    char info;
-} Item;
-
-int main() {
-    intarray = malloc(5 * sizeof(int)); // Allocation de mémoire
-    for (int i = 0; i <= 5; i++) { // Dépassement des bornes du tableau
-        array[i] = i;
+void example_function(int n) {
+    int *ptr = (int *)malloc(n * sizeof(int));
+    if (ptr == NULL) {
+        return; // Gestion incorrecte de l'allocation de mémoire
     }
 
-    Item item = malloc(sizeof(Item)); // Allocation de mémoire
-    item->info = "Exemple"; // Assignation d'une chaîne littérale à un pointeur
+    for (int i = 0; i <= n; i++) { // Dépassement de tableau
+        ptr[i] = i * i;
+    }
 
-    int x = 10, y = 0;
-    int result = x / y; // Division par zéro
+    free(ptr); // Libération de mémoire manquante
+}
 
-    charstr = malloc(10); // Allocation de mémoire
-    str = "Texte"; // Fuite de mémoire, écrasement du pointeur
+int main() {
+    int a = 10;
+    int b = 0; // Variable inutilisée
 
-    free(array); // Libération de la mémoire
-    free(item); // Libération de la mémoire
-    // La mémoire allouée à 'str' n'est jamais libérée (fuite de mémoire)
+    if (a == 10); // Condition vide
+
+    example_function(5); // Appel de fonction avec des erreurs potentielles
 
     return 0;
 }
