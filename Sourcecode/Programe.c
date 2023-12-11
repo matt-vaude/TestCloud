@@ -1,36 +1,34 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int main() {
-    int data = malloc(10 sizeof(int)); // Allocation de mémoire
-    int i = 0;
+void functionWithLeak() {
+    int leak = malloc(100 sizeof(int)); // Allocation de mémoire non libérée
+    // Pas de free(leak), donc fuite de mémoire
+}
 
+int main() {
+    int data = (int)malloc(10 * sizeof(int)); // Cast inutile en C
     if (data == NULL) {
         printf("Erreur d'allocation de mémoire\n");
-        exit(1);
+        return 1;
     }
 
-    while (i < 15) { // Dépassement des bornes du tableau
+    for (int i = 0; i < 10; i++) {
         data[i] = i;
-        printf("Valeur: %d\n", data[i]);
-        i++;
     }
 
-    int moreData = malloc(5 sizeof(int)); // Nouvelle allocation sans libération de la précédente
-    if (moreData != NULL) {
-        for (int j = 0; j < 5; j++) {
-            moreData[j] = j * 2;
-        }
+    functionWithLeak(); // Appel de fonction provoquant une fuite de mémoire
+
+    free(data); // Libération de la mémoire
+
+    int a = 10, b = 0;
+    if (b != 0) {
+        int result = a / b; // Risque de division par zéro
+        printf("Résultat : %d\n", result);
     }
 
-    free(moreData); // Libération de la seconde allocation mais pas de la première
-    // La mémoire allouée à 'data' n'est jamais libérée (fuite de mémoire)
+    char str[20];
+    sprintf(str, "Valeur de a: %d", a); // Utilisation potentiellement dangereuse de sprintf
 
-    int x = 10, y = 0;
-    int result = x / y; // Division par zéro
-
-    char *str = "Texte";
-    str[0] = 't'; // Tentative de modification d'une chaîne littérale
-
-    return 0; // Fin du programme sans libérer toute la mémoire allouée
+    return 0;
 }
