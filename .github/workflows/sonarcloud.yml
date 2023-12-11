@@ -23,6 +23,7 @@ jobs:
           
       - name: Install build-wrapper
         run: |
+          ls
           curl -L -o build-wrapper-linux-x86-64.zip https://sonarcloud.io/static/cpp/build-wrapper-linux-x86.zip
           unzip build-wrapper-linux-x86-64.zip
 
