@@ -29,8 +29,7 @@ jobs:
 
       - name: check buildwrapper
         run: |
-          cd Sourcecode
-          cd ../
+          cd build-wrapper-linux-x86
           ls -l
 
         
