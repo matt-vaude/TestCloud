@@ -15,6 +15,7 @@ all: $(EXEC)
 $(EXEC): $(OBJS)
     $(CC) $(OBJS) -o $@
 
+
 $(BUILD_DIR)/%.o: $(SRC_DIR)/%.c | $(BUILD_DIR)
     $(CC) $(CFLAGS) -c $< -o $@
 
