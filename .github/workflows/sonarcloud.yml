@@ -30,7 +30,7 @@ jobs:
       - name: check buildwrapper
         run: |
           cd Sourcecode
-          cd ../..
+          cd ../
           ls -l
 
         
