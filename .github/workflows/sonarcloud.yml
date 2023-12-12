@@ -30,14 +30,15 @@ jobs:
       - name: check buildwrapper
         run: |
           cd Sourcecode
-          cd ./
+          cd ../..
           ls -l
 
         
       - name: Run build-wrapper
         run: |
           cd Sourcecode
-          ./build-wrapper-linux-x86-64 --out-dir ${{ env.BUILD_WRAPPER_OUT_DIR }} make clean all
+          ../../build-wrapper-linux-x86-64 --out-dir ${{ env.BUILD_WRAPPER_OUT_DIR }} make clean all
+
 
       - name: Run sonar-scanner
         env:
